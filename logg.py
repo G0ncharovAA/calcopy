@@ -22,27 +22,29 @@ def SaveRecordToLogFile(data):
     data_row = []
 
     if len(data) != right_ls_len:
-        print(f'логгирование не выполнено, количество параметров не равно {right_ls_len}!')
+        print(f'Количество параметров не равно {right_ls_len}!')
         return False
-
-    with open(log_file_Name, 'a', encoding='utf-8') as flog:
-        if getsize(flog.name) == 0:
-            # если файл новый, то пишем специальную последовательность \uFEFF,
-            # для автоматического определения Excel типа файла
-            # (иначе нужно каждый раз указывать при открытии) и
-            # добавляем строку заголовка
-            flog.write(str(";".join(data_header) + '\n'))
-        # в список добавляем требуемые параметры
-        data_row.append(dt.now().strftime('%d.%m.%Y'))
-    data_row.append(dt.now().strftime('%H:%M:%S'))
-        for cur_param in data:
-            if cur_param == '':
-                print(f'Один из параметров строки вход.параметров пустой. Логгирование не выполнено!'
-                      f' Строка: {data}')
-                return False
-            data_row.append(cur_param)
-        # пишем в лог-файл строку данных
-        flog.write(str(";".join(data_row)) + '\n')
+    try:
+        with open(log_file_Name, 'a', encoding='utf-8') as flog:
+            if getsize(flog.name) == 0:
+                # если файл новый, то пишем специальную последовательность \uFEFF,
+                # для автоматического определения Excel типа файла
+                # (иначе нужно каждый раз указывать при открытии) и
+                # добавляем строку заголовка
+                flog.write(str(";".join(data_header) + '\n'))
+            # в список добавляем требуемые параметры
+            data_row.append(dt.now().strftime('%d.%m.%Y'))
+            data_row.append(dt.now().strftime('%H:%M:%S'))
+            for cur_param in data:
+                if cur_param == '':
+                    print(f'Один из параметров строки вход.параметров пустой. Строка: {data}')
+                    return False
+                data_row.append(cur_param)
+            # пишем в лог-файл строку данных
+            flog.write(str(";".join(data_row)) + '\n')
+    except PermissionError:
+        print('Доступ к файлу запрещён (возможно другой программой).')
+        return False
 
     # в случае успешного логгирования записи функция возвращает True,
     # в случае ошибки записи - False (не совпадает количество элементов списка,
