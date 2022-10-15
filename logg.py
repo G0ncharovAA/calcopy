@@ -55,6 +55,7 @@ def SaveRecordToLogFile(data):
 # тестирование логгирования
 ls = ['+', '2, 5', '10']
 Status = SaveRecordToLogFile(ls)
+
 if Status == True:
     print('Логгирование выполнено успешно!')
 else:
