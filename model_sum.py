@@ -9,5 +9,5 @@ def init(a, b):
     num2 = b
 
 
-def sum():
+def my_sum():
     return num + num2

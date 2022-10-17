@@ -9,5 +9,5 @@ def init(a, b):
     num2 = b
 
 
-def pow():
+def my_pow():
     return num**num2
