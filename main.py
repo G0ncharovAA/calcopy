@@ -8,6 +8,7 @@ from model_sum import sum
 
 
 class OperationType(Enum):
+    EXIT = 0
     DIVIDE = 1
     MULTIPLY = 2
     POWER = 3
