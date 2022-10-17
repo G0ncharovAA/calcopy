@@ -6,5 +6,5 @@ def init(a):
     num = a
     
 
-def sqrt():
+def my_sqrt():
     num ** 0,5
