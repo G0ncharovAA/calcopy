@@ -6,41 +6,32 @@ import model_subtraction  as sub
 import model_sum  as sum
 
 
-def king_menu():
+def show_greetings():
     print("Добро пожаловать в CalcoPy!")
-    answer = int(input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Слажение)\nКакую операцию Вам необходимо произвести? :"))
-    while True:
-        match answer:
-            case 1:
-                print(div.div_menu())
-            case 2:
-                print(mult.multyply())
-            case 3:
-                print(pow.my_pow())
-            case 4:
-                print(sqrt.sqrt())
-            case 5:
-                print(sub.subtraction())
-            case 6:
-                print(sum.sum())
 
-print(king_menu())
 
-# print("Добро пожаловать в CalcoPy!")
+def king_menu():
+    answer = int(input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Слажение)\n0 - выход\nКакую операцию Вам необходимо произвести? :"))
+    return answer
 
-# answer = int(input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Слажение)\nКакую операцию Вам необходимо произвести? :"))
-# while True:
-#     match answer:
-#         case 1:
-#             print(div.div_menu())
-#         case 2:
-#             print(mult.multyply())
-#         case 3:
-#             print(pow.pow())
-#         case 4:
-#             print(sqrt.sqrt())
-#         case 5:
-#             print(sub.subtraction())
-#         case 6:
-#             print(sum.sum())
 
+def enter_real_argument():
+    return input("Введите вещественный аргумент: ")
+
+
+def enter_complex_argument():
+    real_part = input("Введите вещественную часть: ")
+    complex_part = input("Введите комплексную часть: ")
+    return real_part, complex_part
+
+
+def show_result(result):
+    print(f"Результат выполнеия операции: {result}")
+
+
+def ask_for_complex():
+    return input("Использовать ли комплесные аргументы? ")
+
+
+def show_error(error):
+    print(f"Произошла ошибка: {error}")

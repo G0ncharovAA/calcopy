@@ -5,6 +5,7 @@ import model_pow
 import model_sqrt
 import model_subtraction
 import model_sum
+import user_interface as ui
 
 
 class OperationType(Enum):
@@ -18,12 +19,9 @@ class OperationType(Enum):
 
 
 def main():
-    view.show_greetings()
+    ui.show_greetings()
     while True:
-        operation_type = view.get_operation_type()
-        # Python настолько крив что не может сравнивать Enum:
-        # operation_type is OperationType.ADD
-        # поэтому приходится сравнивать их порядковые значения(((
+        operation_type = ui.king_menu()
         if operation_type.value == OperationType.ADD.value:
             add_entry()
         elif operation_type.value == OperationType.FIND.value:
@@ -36,6 +34,8 @@ def main():
             view.show_goodbye()
             break
 
+
+def
 
 if __name__ == '__main__':
     main()
