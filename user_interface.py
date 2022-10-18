@@ -11,7 +11,7 @@ def show_greetings():
 
 
 def king_menu():
-    answer = int(input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Слажение)\n0 - выход\nКакую операцию Вам необходимо произвести? :"))
+    answer = input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Слажение)\n0 - выход\nКакую операцию Вам необходимо произвести? :")
     return answer
 
 
