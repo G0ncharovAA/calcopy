@@ -1,10 +1,10 @@
 from enum import Enum
-from model_divide import division, integer_division, remainder_division
-from model_mult import multyply
-from model_pow import pow
-from model_sqrt import sqrt
-from model_subtraction import subtraction
-from model_sum import sum
+import model_divide
+import model_mult
+import model_pow
+import model_sqrt
+import model_subtraction
+import model_sum
 
 
 class OperationType(Enum):
