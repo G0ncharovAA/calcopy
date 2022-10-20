@@ -3,7 +3,8 @@ def show_greetings():
 
 
 def king_menu():
-    answer = input("1 - divide (Деление)\n2 - mult (Умножение)\n3 - pow (Возведенее в степень)\n4 - sqrt (Квадратный корень)\n5 - subtraction (Вычетание)\n6 - sum (Сложение)\n0 - выход\nКакую операцию Вам необходимо произвести? :")
+    answer = input(
+        "1 - divide (Деление)\n2 - int divide (Целочисленное деление)\n3 - reminder (Остаток от деления)\n4 - mult (Умножение)\n5 - pow (Возведенее в степень)\n6 - sqrt (Квадратный корень)\n7 - subtraction (Вычетание)\n8 - sum (Сложение)\n0 - выход\nКакую операцию Вам необходимо произвести?: ")
     return answer
 
 
@@ -22,7 +23,7 @@ def show_result(result):
 
 
 def ask_for_complex():
-    return input("Использовать ли комплесные аргументы? ")
+    return input("Использовать ли комплесные аргументы? [Да/Нет]")
 
 
 def show_error(error):
