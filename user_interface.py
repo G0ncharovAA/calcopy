@@ -5,7 +5,7 @@ def show_greetings():
 
 def king_menu():
     answer = input(
-        "1 - divide (Деление)\n2 - int divide (Целочисленное деление)\n3 - reminder (Остаток от деления)\n4 - mult (Умножение)\n5 - pow (Возведенее в степень)\n6 - sqrt (Квадратный корень)\n7 - subtraction (Вычетание)\n8 - sum (Сложение)\n0 - выход\nКакую операцию Вам необходимо произвести?: ")
+        "1 - divide (Деление)\n2 - int divide (Целочисленное деление)\n3 - reminder (Остаток от деления)\n4 - mult (Умножение)\n5 - pow (Возведение в степень)\n6 - sqrt (Квадратный корень)\n7 - subtraction (Вычетание)\n8 - sum (Сложение)\n0 - выход\nКакую операцию Вам необходимо произвести?: ")
     if int(answer) > 8 or int(answer) < 0:
         print("Не верное значение...")
         return king_menu()
@@ -32,7 +32,7 @@ def enter_complex_argument():
 
 
 def show_result(result):
-    print(f"Результат выполнеия операции: {result}")
+    print(f"Результат выполнения операции: {result}")
 
 
 def ask_for_complex():
