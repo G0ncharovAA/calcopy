@@ -8,6 +8,7 @@ import model_sum
 from secret import KEY
 import user_interface as ui
 import excep
+import compl
 from telegram import Update
 from telegram.ext import (
     Updater,
@@ -73,6 +74,11 @@ def execute_operation(args):
             return model_sum.my_sum()
 
 
+def parse_complex_arg(str_arg):
+    args = str_arg.split(" ")
+    return compl.get_compl(float(args[0]), float(args[1]))
+
+
 def start(update: Update, context: CallbackContext) -> int:
     ui.tele_print(update=update, context=context, output=ui.show_greetings())
     ui.tele_print(update=update, context=context, output=ui.king_menu())
@@ -110,7 +116,7 @@ def handle_сomplexity(update: Update, context: CallbackContext) -> int:
 
 def handle_real_argument(update: Update, context: CallbackContext) -> int:
     arg = excep.check(float, update.message.text)
-    if isinstance(arg, float):
+    if isinstance(arg, complex):
         args.append(arg)
         if current_operation == OperationType.SQRT:
             operation_args = [current_operation].extend(args)
@@ -139,8 +145,8 @@ def handle_real_argument(update: Update, context: CallbackContext) -> int:
         return REAL_ARGUMENT
 
 
-def handle_complex_argument
-    arg = excep.check(float, update.message.text)
+def handle_complex_argument(update: Update, context: CallbackContext) -> int:
+    arg = excep.check(parse_complex_arg, update.message.text)
     if isinstance(arg, float):
         args.append(arg)
         if current_operation == OperationType.SQRT:
@@ -154,8 +160,8 @@ def handle_complex_argument
                 return MENU
         else:
             if len(args) < 2:
-                ui.tele_print(update=update, context=context, output=ui.enter_real_argument())
-                return REAL_ARGUMENT
+                ui.tele_print(update=update, context=context, output=ui.enter_complex_argument())
+                return COMPLEX_ARGUMENT
             else:
                 operation_args = [current_operation].extend(args)
                 result = excep.check(execute_operation, operation_args)
@@ -167,7 +173,8 @@ def handle_complex_argument
                     return MENU
     else:
         ui.tele_print(update=update, context=context, output=ui.show_error(f"{arg} - не число"))
-        return REAL_ARGUMENT
+        return COMPLEX_ARGUMENT
+
 
 def cancel(update: Update, context: CallbackContext) -> int:
     ui.tele_print(update=update, context=context, output=ui.show_goodbye())
@@ -182,8 +189,8 @@ def main():
         states={
             MENU: [MessageHandler(Filters.all, handle_menu)],
             COMPLEXITY: [MessageHandler(Filters.all, handle_сomplexity)],
-            REAL_ARGUMENT: [MessageHandler(Filters.all, on_next)],
-            COMPLEX_ARGUMENT: [MessageHandler(Filters.all, on_next)],
+            REAL_ARGUMENT: [MessageHandler(Filters.all, handle_real_argument)],
+            COMPLEX_ARGUMENT: [MessageHandler(Filters.all, handle_complex_argument)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],
     )
