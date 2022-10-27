@@ -39,6 +39,14 @@ args = []
 MENU, COMPLEXITY, REAL_ARGUMENT, COMPLEX_ARGUMENT = range(4)
 
 
+def parse_menu_input(arg):
+    return OperationType(int(arg))
+
+
+def parse_float(arg):
+    return float(arg)
+
+
 def check_yes_or_no(arg):
     if arg.lower() == "да" or arg.lower() == "нет":
         return arg.lower()
@@ -89,16 +97,16 @@ def handle_menu(update: Update, context: CallbackContext) -> int:
     global args
     args = []
     global current_operation
-    current_operation = excep.check(OperationType, update.message.text)
+    current_operation = excep.check(parse_menu_input, update.message.text)
     if current_operation == OperationType.EXIT:
         ui.tele_print(update=update, context=context, output=ui.show_goodbye())
         return ConversationHandler.END
-    elif issubclass(current_operation, OperationType):
+    elif isinstance(current_operation, OperationType):
         ui.tele_print(update=update, context=context, output=ui.ask_for_complex())
         return COMPLEXITY
     else:
         ui.tele_print(update=update, context=context, output=ui.show_error(current_operation))
-    return ConversationHandler.MENU
+    return MENU
 
 
 def handle_сomplexity(update: Update, context: CallbackContext) -> int:
@@ -115,13 +123,15 @@ def handle_сomplexity(update: Update, context: CallbackContext) -> int:
 
 
 def handle_real_argument(update: Update, context: CallbackContext) -> int:
-    arg = excep.check(float, update.message.text)
-    if isinstance(arg, complex):
+    arg = excep.check(parse_float, update.message.text)
+    if isinstance(arg, float):
         args.append(arg)
         if current_operation == OperationType.SQRT:
-            operation_args = [current_operation].extend(args)
+            operation_args = []
+            operation_args.append(current_operation)
+            operation_args.extend(args)
             result = excep.check(execute_operation, operation_args)
-            if issubclass(result, Exception):
+            if isinstance(result, Exception):
                 ui.tele_print(update=update, context=context, output=ui.show_error(result))
             else:
                 ui.tele_print(update=update, context=context, output=ui.show_result(result))
@@ -132,9 +142,11 @@ def handle_real_argument(update: Update, context: CallbackContext) -> int:
                 ui.tele_print(update=update, context=context, output=ui.enter_real_argument())
                 return REAL_ARGUMENT
             else:
-                operation_args = [current_operation].extend(args)
+                operation_args = []
+                operation_args.append(current_operation)
+                operation_args.extend(args)
                 result = excep.check(execute_operation, operation_args)
-                if issubclass(result, Exception):
+                if isinstance(result, Exception):
                     ui.tele_print(update=update, context=context, output=ui.show_error(result))
                 else:
                     ui.tele_print(update=update, context=context, output=ui.show_result(result))
@@ -147,12 +159,14 @@ def handle_real_argument(update: Update, context: CallbackContext) -> int:
 
 def handle_complex_argument(update: Update, context: CallbackContext) -> int:
     arg = excep.check(parse_complex_arg, update.message.text)
-    if isinstance(arg, float):
+    if isinstance(arg, complex):
         args.append(arg)
         if current_operation == OperationType.SQRT:
-            operation_args = [current_operation].extend(args)
+            operation_args = []
+            operation_args.append(current_operation)
+            operation_args.extend(args)
             result = excep.check(execute_operation, operation_args)
-            if issubclass(result, Exception):
+            if isinstance(result, Exception):
                 ui.tele_print(update=update, context=context, output=ui.show_error(result))
             else:
                 ui.tele_print(update=update, context=context, output=ui.show_result(result))
@@ -163,9 +177,11 @@ def handle_complex_argument(update: Update, context: CallbackContext) -> int:
                 ui.tele_print(update=update, context=context, output=ui.enter_complex_argument())
                 return COMPLEX_ARGUMENT
             else:
-                operation_args = [current_operation].extend(args)
+                operation_args = []
+                operation_args.append(current_operation)
+                operation_args.extend(args)
                 result = excep.check(execute_operation, operation_args)
-                if issubclass(result, Exception):
+                if isinstance(result, Exception):
                     ui.tele_print(update=update, context=context, output=ui.show_error(result))
                 else:
                     ui.tele_print(update=update, context=context, output=ui.show_result(result))
