@@ -9,6 +9,7 @@ from secret import KEY
 import user_interface as ui
 import excep
 import compl
+import logg
 from telegram import Update
 from telegram.ext import (
     Updater,
@@ -131,6 +132,7 @@ def handle_real_argument(update: Update, context: CallbackContext) -> int:
             operation_args.append(current_operation)
             operation_args.extend(args)
             result = excep.check(execute_operation, operation_args)
+            logg.SaveRecordToLogFile([str(current_operation), str(args), str(result)])
             if isinstance(result, Exception):
                 ui.tele_print(update=update, context=context, output=ui.show_error(result))
             else:
@@ -146,6 +148,7 @@ def handle_real_argument(update: Update, context: CallbackContext) -> int:
                 operation_args.append(current_operation)
                 operation_args.extend(args)
                 result = excep.check(execute_operation, operation_args)
+                logg.SaveRecordToLogFile([str(current_operation), str(args), str(result)])
                 if isinstance(result, Exception):
                     ui.tele_print(update=update, context=context, output=ui.show_error(result))
                 else:
@@ -166,6 +169,7 @@ def handle_complex_argument(update: Update, context: CallbackContext) -> int:
             operation_args.append(current_operation)
             operation_args.extend(args)
             result = excep.check(execute_operation, operation_args)
+            logg.SaveRecordToLogFile([str(current_operation), str(args), str(result)])
             if isinstance(result, Exception):
                 ui.tele_print(update=update, context=context, output=ui.show_error(result))
             else:
@@ -181,6 +185,7 @@ def handle_complex_argument(update: Update, context: CallbackContext) -> int:
                 operation_args.append(current_operation)
                 operation_args.extend(args)
                 result = excep.check(execute_operation, operation_args)
+                logg.SaveRecordToLogFile([str(current_operation), str(args), str(result)])
                 if isinstance(result, Exception):
                     ui.tele_print(update=update, context=context, output=ui.show_error(result))
                 else:
